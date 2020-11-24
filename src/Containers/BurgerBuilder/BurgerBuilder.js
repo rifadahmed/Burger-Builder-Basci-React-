@@ -57,8 +57,9 @@ class Burgerbuilder extends Component {
        this.setState({
            ingredients:newIngredients,
            price:newPrice,
+           
+           
        })
-
        const ingredientLength=Object.keys(this.state.ingredients).map(igKey=>{
         return(
             [...Array(this.state.ingredients[igKey])].map((_,i)=>{
@@ -75,7 +76,7 @@ class Burgerbuilder extends Component {
     })
      
     console.log(ingredientLength.length)
-    if (ingredientLength.length<=1) {
+    if (ingredientLength.length<1) {
         this.setState({
             flag:true
         })
