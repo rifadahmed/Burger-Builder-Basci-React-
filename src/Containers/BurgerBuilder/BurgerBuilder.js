@@ -32,7 +32,6 @@ class Burgerbuilder extends Component {
        const updatedPrice=oldprice+ingredientPrice
        this.setState({ ingredients:newIngredients,
         price:updatedPrice,
-        flag:false
        })
    }
    removeIngredientHandler=(type)=>{
@@ -41,8 +40,7 @@ class Burgerbuilder extends Component {
 
        const oldCount=this.state.ingredients[type]
        if(oldCount<=0){
-         this.setState({
-         })
+
         return null
        }
        
@@ -59,38 +57,22 @@ class Burgerbuilder extends Component {
            price:newPrice,
        })
 
-       const ingredientLength=Object.keys(this.state.ingredients).map(igKey=>{
-        return(
-            [...Array(this.state.ingredients[igKey])].map((_,i)=>{
-                return(
-                        null
-                    )
-                
 
-            })
-        )
-            //reduce method helps flat the array
-    }).reduce((accumulator,item)=>{
-        return accumulator.concat(item)
-    })
-     
-    console.log(ingredientLength.length)
-    if (ingredientLength.length<=1) {
-        this.setState({
-            flag:true
-        })
-        
-    }
    }
     render(){
-
+        const disabledInfo={
+            ...this.state.ingredients
+        }
+        for(let key in disabledInfo){
+            disabledInfo[key]=disabledInfo[key]<=0
+        }
         return(
             <Auxiliary>
                 <Burger ingredients={this.state.ingredients} />
                 <BuildControls 
                 addNewIngredient={this.addIngredientHandler}
                 removeIngredientHandler={this.removeIngredientHandler}
-                flag={this.state.flag}
+                disabledInfo={disabledInfo}
                 
                 />
             </Auxiliary>

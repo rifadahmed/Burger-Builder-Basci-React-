@@ -16,7 +16,7 @@ const buildControls=(props)=>{
             return<BuildControl key={item.type} label={item.label} 
             addNewIngredient={()=>props.addNewIngredient(item.type)}
             removeIngredientHandler={()=>props.removeIngredientHandler(item.type)}
-            flag={props.flag}
+            disabledInfo={props.disabledInfo[item.type]}
              />
         }  
         )}
