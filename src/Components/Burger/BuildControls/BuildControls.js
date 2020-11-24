@@ -7,15 +7,20 @@ const items=[
     {label:"Bacon", type:"bacon"},
     {label:"Cheese", type:"cheese"}
 ]
-const buildControls=(props)=>(
+const buildControls=(props)=>{
+   console.log(props.flag)
+    return(
     <div className={classes.BuildControls}>
+         
         {items.map((item)=>{
             return<BuildControl key={item.type} label={item.label} 
             addNewIngredient={()=>props.addNewIngredient(item.type)}
             removeIngredientHandler={()=>props.removeIngredientHandler(item.type)}
+            flag={props.flag}
              />
         }  
         )}
     </div>
-)
+    )
+}
 export default buildControls

@@ -22,7 +22,6 @@ const Burger=(props)=>{
     }).reduce((accumulator,item)=>{
         return accumulator.concat(item)
     })
-    console.log(transformedIngredients)
 
 
 

@@ -16,9 +16,11 @@ class Burgerbuilder extends Component {
             cheese:0,
             bacon:0
         },
-        price:4
+        price:4,
+        flag:true
     }
    addIngredientHandler=(type)=>{
+
        const oldCount=this.state.ingredients[type]
        const newCount=oldCount+1;
        const newIngredients={
@@ -29,15 +31,21 @@ class Burgerbuilder extends Component {
        const ingredientPrice=INGReDIENT_PRICES[type]
        const updatedPrice=oldprice+ingredientPrice
        this.setState({ ingredients:newIngredients,
-        price:updatedPrice
+        price:updatedPrice,
+        flag:false
        })
    }
    removeIngredientHandler=(type)=>{
-       const length=this.state.ingredients.reduce((accumulator,item)=>{
-        return accumulator.concat(item)
-       })
-       console.log("Ar" +length)
+
+
+
        const oldCount=this.state.ingredients[type]
+       if(oldCount<=0){
+         this.setState({
+         })
+        return null
+       }
+       
        const newCount=oldCount-1;
        const newIngredients={
            ...this.state.ingredients
@@ -48,17 +56,42 @@ class Burgerbuilder extends Component {
        const newPrice=oldprice-ingredientPrice
        this.setState({
            ingredients:newIngredients,
-           price:newPrice
+           price:newPrice,
        })
+
+       const ingredientLength=Object.keys(this.state.ingredients).map(igKey=>{
+        return(
+            [...Array(this.state.ingredients[igKey])].map((_,i)=>{
+                return(
+                        null
+                    )
+                
+
+            })
+        )
+            //reduce method helps flat the array
+    }).reduce((accumulator,item)=>{
+        return accumulator.concat(item)
+    })
+     
+    console.log(ingredientLength.length)
+    if (ingredientLength.length<=1) {
+        this.setState({
+            flag:true
+        })
+        
+    }
    }
     render(){
-       
+
         return(
             <Auxiliary>
                 <Burger ingredients={this.state.ingredients} />
                 <BuildControls 
                 addNewIngredient={this.addIngredientHandler}
                 removeIngredientHandler={this.removeIngredientHandler}
+                flag={this.state.flag}
+                
                 />
             </Auxiliary>
         )
