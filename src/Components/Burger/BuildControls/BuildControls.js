@@ -11,15 +11,17 @@ const buildControls=(props)=>{
    console.log(props.flag)
     return(
     <div className={classes.BuildControls}>
-         
+         <p className="">Burger Price: <strong className="">{props.price.toFixed(2)}</strong></p>
         {items.map((item)=>{
             return<BuildControl key={item.type} label={item.label} 
             addNewIngredient={()=>props.addNewIngredient(item.type)}
             removeIngredientHandler={()=>props.removeIngredientHandler(item.type)}
-            flag={props.flag}
+            disabledInfo={props.disabledInfo[item.type]}
              />
         }  
         )}
+                    <button className={classes.OrderButton} disabled={!props.purchasable}>ORDER NOW!</button>
+
     </div>
     )
 }

@@ -4,9 +4,8 @@ const BuildControl=(props)=>{
 
     return(
     <div className={classes.BuildControl}>
-        {props.flag?  <button className={classes.Less} onClick={props.removeIngredientHandler} disabled >Less</button> :
-                <button className={classes.Less} onClick={props.removeIngredientHandler}>Less</button>
-        }
+        <div className={classes.Label}>{props.label}</div>
+        <button className={classes.Less} onClick={props.removeIngredientHandler} disabled={props.disabledInfo} >Less</button>
         <button className={classes.More} onClick={props.addNewIngredient} >More</button>
 
     </div>
