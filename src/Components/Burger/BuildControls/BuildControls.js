@@ -7,7 +7,7 @@ const items=[
     {label:"Bacon", type:"bacon"},
     {label:"Cheese", type:"cheese"}
 ]
-const buildControls=(props)=>{
+const buildControls= (props)=>{
    console.log(props.flag)
     return(
     <div className={classes.BuildControls}>
