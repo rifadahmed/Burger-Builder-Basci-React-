@@ -19,7 +19,8 @@ class Burgerbuilder extends Component {
             bacon:0
         },
         price:4,
-        purchasable:false
+        purchasable:false,
+        orderButton:false,
     }
     updatePurchasable(newIngredients){
 
@@ -31,7 +32,6 @@ class Burgerbuilder extends Component {
 
         this.setState({purchasable: sum>0})
         
-        console.log(this.state.purchasable)
     }
    addIngredientHandler=(type)=>{
 
@@ -76,6 +76,12 @@ class Burgerbuilder extends Component {
        this.updatePurchasable(newIngredients)
 
    }
+   orderButtonHandler=()=>{
+       this.setState({
+           orderButton:true
+       })
+       console.log(this.state.orderButton)
+   }
     render(){
         const disabledInfo={
             ...this.state.ingredients
@@ -85,16 +91,18 @@ class Burgerbuilder extends Component {
         }
         return(
             <Auxiliary>
-                <Modal>
-                    <OrderSummary ingredients={this.state.ingredients}/>
+                <Modal clicked={this.state.orderButton}>
+                    <OrderSummary 
+                    ingredients = {this.state.ingredients}/>
                 </Modal>
-                <Burger ingredients={this.state.ingredients} />
+                <Burger ingredients = {this.state.ingredients} />
                 <BuildControls 
-                    addNewIngredient={this.addIngredientHandler}
-                    removeIngredientHandler={this.removeIngredientHandler}
-                    disabledInfo={disabledInfo}
-                    price={this.state.price}
-                    purchasable={this.state.purchasable}
+                    addNewIngredient = {this.addIngredientHandler}
+                    removeIngredientHandler = {this.removeIngredientHandler}
+                    disabledInfo = {disabledInfo}
+                    price = {this.state.price}
+                    purchasable = {this.state.purchasable}
+                    orderButtonHandler = {this.orderButtonHandler}
                 />
             </Auxiliary>
         )
