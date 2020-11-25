@@ -34,7 +34,6 @@ const Burger=(props)=>{
             <Ingredients type="bacon"/> */}
             {transformedIngredients.length? transformedIngredients : <p>Add Some ingredients</p>}
             <Ingredients type="bread-bottom"/>
-            
             </div>
         )
 
