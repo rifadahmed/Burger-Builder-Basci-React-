@@ -14,108 +14,86 @@ const INGReDIENT_PRICES={
     cheese:1.75
 }
 class Burgerbuilder extends Component {
-    state={
+    state = {
         ingredients:{
-            meat:0,
-            salad:0,
-            cheese:0,
-            bacon:0
+            meat: 0,
+            salad: 0,
+            cheese: 0,
+            bacon: 0,
         },
-        price:4,
-        purchasable:false,
-        orderButton:false,
+        price: 4,
+        purchasable: false,
+        orderButton: false,
     }
     updatePurchasable(newIngredients){
 
-        const sum=Object.keys(newIngredients).map(igKey=>{
+        const sum = Object.keys(newIngredients).map(igKey => {
             return newIngredients[ igKey ]
         }).reduce((sum,item ) => {
-            return sum+item
-        },0);
+            return sum + item
+        }, 0);
 
         this.setState({purchasable: sum>0})
         
     }
-   addIngredientHandler = (type ) => {
+   addIngredientHandler = ( type ) => {
 
-       const oldCount=this.state.ingredients[type]
-       const newCount=oldCount+1;
-       const newIngredients={
+       const oldCount = this.state.ingredients[ type ]
+       const newCount = oldCount + 1;
+       const newIngredients = {
            ...this.state.ingredients
        }
-       newIngredients[type]=newCount
-       const oldprice=this.state.price
-       const ingredientPrice=INGReDIENT_PRICES[type]
-       const updatedPrice=oldprice+ingredientPrice
-       this.setState({ ingredients:newIngredients,
-        price:updatedPrice,
+       newIngredients[ type ] = newCount
+       const oldprice = this.state.price
+       const ingredientPrice = INGReDIENT_PRICES[ type ]
+       const updatedPrice = oldprice + ingredientPrice
+       this.setState({ ingredients: newIngredients,
+        price: updatedPrice,
        })
        this.updatePurchasable(newIngredients)
    }
-   removeIngredientHandler = (type ) => {
-
-
-
-       const oldCount=this.state.ingredients[type]
-       if(oldCount<=0){
-
+   removeIngredientHandler = ( type ) => {
+       const oldCount = this.state.ingredients[ type ]
+       if(oldCount <= 0){
         return null
        }
-       
-       const newCount=oldCount-1;
-       const newIngredients={
+       const newCount = oldCount-1;
+       const newIngredients = {
            ...this.state.ingredients
        }
-       newIngredients[type]=newCount
-       const oldprice=this.state.price
-       const ingredientPrice=INGReDIENT_PRICES[type]
-       const newPrice=oldprice-ingredientPrice
+       newIngredients[ type ] = newCount
+       const oldprice = this.state.price
+       const ingredientPrice = INGReDIENT_PRICES[ type ]
+       const newPrice = oldprice-ingredientPrice
        this.setState({
-           ingredients:newIngredients,
-           price:newPrice,
-           
-           
+           ingredients: newIngredients,
+           price: newPrice,
        })
        this.updatePurchasable(newIngredients)
 
    }
    orderButtonHandler = () => {
        this.setState({
-           orderButton:true
+           orderButton: true
        })
-       console.log(this.state.orderButton)
    }
    backdropClickHandler = () => {
     this.setState({
-        orderButton:false
+        orderButton: false
     })
    }
    continueButtonHandler  = () => {
        alert("Continued")
    }
     render(){
-        const disabledInfo={
+        const disabledInfo = {
             ...this.state.ingredients
         }
         for(let key in disabledInfo){
-            disabledInfo[key]=disabledInfo[key]<=0
+            disabledInfo[ key ] = disabledInfo[ key ] <= 0
         }
         return(
             <Auxiliary>
-
-                <Backdrop 
-                show = {this.state.orderButton} 
-                modalClickHandler = {this.backdropClickHandler}
-                />
-                
-                <Modal clicked = {this.state.orderButton}>
-                    <OrderSummary 
-                    ingredients = {this.state.ingredients}
-                    cancelBtn = {this.backdropClickHandler}
-                    continueBtn = {this.continueButtonHandler}
-                    />
-                </Modal>
-
                 <Burger ingredients = {this.state.ingredients} />
 
                 <BuildControls 
@@ -127,6 +105,20 @@ class Burgerbuilder extends Component {
                     orderButtonHandler = {this.orderButtonHandler}
                 />
 
+                <Modal clicked = {this.state.orderButton}>
+                    <OrderSummary 
+                    ingredients = {this.state.ingredients}
+                    cancelBtn = {this.backdropClickHandler}
+                    continueBtn = {this.continueButtonHandler}
+                    price = {this.state.price}
+                    />
+                </Modal>
+
+                <Backdrop 
+                show = {this.state.orderButton} 
+                modalClickHandler = {this.backdropClickHandler}
+                />
+                
             </Auxiliary>
         )
     }
