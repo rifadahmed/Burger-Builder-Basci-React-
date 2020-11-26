@@ -85,10 +85,13 @@ class Burgerbuilder extends Component {
        })
        console.log(this.state.orderButton)
    }
-   modalClickHandler = () => {
+   backdropClickHandler = () => {
     this.setState({
         orderButton:false
     })
+   }
+   continueButtonHandler  = () => {
+       alert("Continued")
    }
     render(){
         const disabledInfo={
@@ -102,12 +105,14 @@ class Burgerbuilder extends Component {
 
                 <Backdrop 
                 show = {this.state.orderButton} 
-                modalClickHandler = {this.modalClickHandler}
+                modalClickHandler = {this.backdropClickHandler}
                 />
                 
                 <Modal clicked = {this.state.orderButton}>
                     <OrderSummary 
                     ingredients = {this.state.ingredients}
+                    cancelBtn = {this.backdropClickHandler}
+                    continueBtn = {this.continueButtonHandler}
                     />
                 </Modal>
 
