@@ -1,10 +1,14 @@
 import React from "react"
 import Logo from "../../Logo/Logo"
 import NavItems from "../../Navigation/NavigationItems/NavigationItems"
-const SideDrawer = () => {
+import classes from "./SideDrawer.module.css"
+const SideDrawer = (props) => {
     return (
-        <div className="">
-            <Logo/>
+        <div className={classes.SideDrawer}>
+            <div className={classes.Logo}>
+                <Logo/>
+            </div>
+            
             <nav>
                 <NavItems/>
             </nav>
