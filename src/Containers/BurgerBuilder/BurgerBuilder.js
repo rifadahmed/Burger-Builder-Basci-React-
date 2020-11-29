@@ -81,6 +81,7 @@ class Burgerbuilder extends Component {
     this.setState({
         orderButton: false
     })
+    
    }
    continueButtonHandler  = () => {
        alert("Continued")
