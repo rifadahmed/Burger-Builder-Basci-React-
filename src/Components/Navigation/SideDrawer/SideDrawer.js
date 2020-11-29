@@ -23,7 +23,6 @@ const SideDrawer = (props) => {
                    
                    <nav>
                        <NavItems/>
-                       <p onClick={props.backDropClick}>Dummy trxt</p>
                    </nav>
                </div>
               
