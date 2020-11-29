@@ -5,11 +5,10 @@ import classes from "./SideDrawer.module.css"
 import BackDrop from "../../UI/Backdrop/Backdrop"
 import Auxiliary from "../../../Hoc/Auxiliary"
 const SideDrawer = (props) => {
-    let attachedClasse=[classes.SideDrawer,classes.Close]
-    if(props.sideDrawerShow)
+    let attachedClasse=[ classes.SideDrawer,classes.Close ]
+    if ( props.sideDrawerShow )
     {
          attachedClasse=[classes.SideDrawer,classes.Open]
-
     } 
     return (
         <Auxiliary>
