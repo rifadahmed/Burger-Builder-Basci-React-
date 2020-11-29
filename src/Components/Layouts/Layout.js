@@ -5,22 +5,29 @@ import Toolbar from "../Toolbar/Toolbar"
 import SideDrawer from "../Navigation/SideDrawer/SideDrawer"
 class Layout extends Component {
     state={
-        backDropFlag:true,
-        sideDrawerShow:true
+        backDropFlag:false,
+        sideDrawerShow:false
     }
-    backDropClick = () => {
+    backDropClickHandler = () => {
         this.setState({
             sideDrawerShow:false,
             backDropFlag:false
         })
     }
+    menuClickHandler = () => {
+        this.setState({
+            sideDrawerShow:true,
+            backDropFlag:true
+        })
+        
+    }
     render (){
 
         return (
             <Auxiliary >
-            <Toolbar/> 
+            <Toolbar menuClick={this.menuClickHandler}/> 
             <SideDrawer show={this.state.backDropFlag}
-             backDropClick={this.backDropClick} 
+             backDropClick={this.backDropClickHandler} 
              sideDrawerShow={this.state.sideDrawerShow}/>
              
             <div className="">Tollbar,Sidedrawer,Backdrop</div>
