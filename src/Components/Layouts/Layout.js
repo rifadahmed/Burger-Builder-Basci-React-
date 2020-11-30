@@ -29,8 +29,6 @@ class Layout extends Component {
             <SideDrawer show={this.state.backDropFlag}
              backDropClick={this.backDropClickHandler} 
              sideDrawerShow={this.state.sideDrawerShow}/>
-             
-            <div className="">Tollbar,Sidedrawer,Backdrop</div>
             <main className={classes.content}>{this.props.children}</main>
             
         </Auxiliary>

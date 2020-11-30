@@ -1,9 +1,9 @@
 import React,{Component} from "react"
 import Auxiliary from "../../Hoc/Auxiliary"
 import Burger from "../../Components/Burger/Burger"
-import BuildControls from "../../Components/Burger/BuildControls/BuildControls"
+import BuildControls from "../../Components/BuildControls/BuildControls"
 import Modal from "../../Components/UI/Modal/Modal"
-import OrderSummary from "../../Components/Burger/OrderSummary/OrderSummary"
+import OrderSummary from "../../Components/OrderSummary/OrderSummary"
 import Backdrop from "../../Components/UI/Backdrop/Backdrop"
 
 const INGReDIENT_PRICES={
