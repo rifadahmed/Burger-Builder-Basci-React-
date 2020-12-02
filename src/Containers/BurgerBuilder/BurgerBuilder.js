@@ -6,6 +6,8 @@ import Modal from "../../Components/UI/Modal/Modal"
 import OrderSummary from "../../Components/OrderSummary/OrderSummary"
 import Backdrop from "../../Components/UI/Backdrop/Backdrop"
 import axios from "../../axios-orders"
+import Spinner from "../../Components/UI/Spinner/Spinner"
+import orderSummary from "../../Components/OrderSummary/OrderSummary"
 
 const INGReDIENT_PRICES={
     meat:2,
@@ -16,15 +18,11 @@ const INGReDIENT_PRICES={
 }
 class Burgerbuilder extends Component {
     state = {
-        ingredients:{
-            meat: 0,
-            salad: 0,
-            cheese: 0,
-            bacon: 0,
-        },
+        ingredients:null,
         price: 4,
         purchasable: false,
         orderButton: false,
+        isLoading: false
     }
     updatePurchasable(newIngredients){
 
@@ -104,6 +102,11 @@ class Burgerbuilder extends Component {
        .then(response => console.log(response))
        .catch(error => console.log(error))
    }
+   componentDidMount() {
+       axios.get("/ingredients.json").then(response =>{
+           this.setState({ingredients:response.data})
+       })
+    }
     render(){
         const disabledInfo = {
             ...this.state.ingredients
@@ -111,10 +114,12 @@ class Burgerbuilder extends Component {
         for(let key in disabledInfo){
             disabledInfo[ key ] = disabledInfo[ key ] <= 0
         }
-        return(
+        let ordersummary=null
+        let burger = <Spinner/>
+        if(this.state.ingredients){
+            burger=(
             <Auxiliary>
-                <Burger ingredients = {this.state.ingredients} />
-
+                <Burger ingredients = {this.state.ingredients} /> 
                 <BuildControls 
                     addNewIngredient = {this.addIngredientHandler}
                     removeIngredientHandler = {this.removeIngredientHandler}
@@ -123,16 +128,28 @@ class Burgerbuilder extends Component {
                     purchasable = {this.state.purchasable}
                     orderButtonHandler = {this.orderButtonHandler}
                 />
+            </Auxiliary>
+            )
+            ordersummary =<OrderSummary 
+            ingredients = {this.state.ingredients}
+            cancelBtn = {this.backdropClickHandler}
+            continueBtn = {this.continueButtonHandler}
+            price = {this.state.price}
+            />
+    }
 
+        if(this.state.isLoading){
+            ordersummary= <Spinner/>
+        }
+        return(
+            <Auxiliary>
+                
+                {burger}
                 <Modal clicked = {this.state.orderButton}>
-                    <OrderSummary 
-                    ingredients = {this.state.ingredients}
-                    cancelBtn = {this.backdropClickHandler}
-                    continueBtn = {this.continueButtonHandler}
-                    price = {this.state.price}
-                    />
+                    {ordersummary}
                 </Modal>
 
+                
                 <Backdrop 
                 show = {this.state.orderButton} 
                 modalClickHandler = {this.backdropClickHandler}
