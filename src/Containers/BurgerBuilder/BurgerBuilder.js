@@ -5,6 +5,7 @@ import BuildControls from "../../Components/BuildControls/BuildControls"
 import Modal from "../../Components/UI/Modal/Modal"
 import OrderSummary from "../../Components/OrderSummary/OrderSummary"
 import Backdrop from "../../Components/UI/Backdrop/Backdrop"
+import axios from "../../axios-orders"
 
 const INGReDIENT_PRICES={
     meat:2,
@@ -84,7 +85,24 @@ class Burgerbuilder extends Component {
     
    }
    continueButtonHandler  = () => {
-       alert("Continued")
+       const burgerOrderData ={
+        ingredients: this.state.ingredients,
+        price: this.state.price,
+        customer: {
+            name: "rifad",
+            address: {
+                street: "testStreet",
+                zipCode: "3242",
+                country: "Bangladesh"
+            },
+            email: "rifad@gmail.com"
+            
+        },
+        deliveryMethod: "fastest"
+       }
+       axios.post("/orders.json",burgerOrderData)
+       .then(response => console.log(response))
+       .catch(error => console.log(error))
    }
     render(){
         const disabledInfo = {
